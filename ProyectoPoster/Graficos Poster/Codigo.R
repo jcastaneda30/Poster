@@ -28,3 +28,96 @@ archivo_csv <- "Intento_suicidioLimpio.csv"
 
 # Lee el archivo CSV
 datos <- read.csv(archivo_csv)
+
+#Si para esquizofrenia y si para depresion
+
+Esquizofrenia_Depresion <- datos[datos$trast_bipolaridad == 1 &
+                                 datos$tran_depre == 1,]
+
+#Si para esquizofrenia y no para depresion
+
+Esquizofrenia <- datos[datos$trast_bipolaridad == 1 &
+                       datos$tran_depre == 2,]
+
+#no para esquizofrenia y si para depresion
+
+Depresion <- datos[datos$trast_bipolaridad == 2 &
+                   datos$tran_depre == 1,]
+
+#no para esquizofrenia y no para depresion
+
+NoDepresion_NoEsquizofrenia <- datos[datos$trast_bipolaridad == 2 &
+                                     datos$tran_depre == 2,]
+
+
+
+Depresion_SexoM <- datos[datos$tran_depre == 1 &
+                          datos$sexo_ == 'M',]
+
+Depresion_SexoF <- datos[datos$tran_depre == 1 &
+                          datos$sexo_ == 'F',]
+
+DepresionDatos <- datos[datos$tran_depre == 1,]
+
+# Crear un resumen de las frecuencias
+tabla_frecuencias <- table(DepresionDatos$tran_depre, DepresionDatos$sexo_)
+
+# Crear un diagrama de barras
+barplot(tabla_frecuencias, 
+        beside = TRUE,
+        col = c("blue", "pink"),
+        legend.text = TRUE,
+        main = "Diagrama de Barras de Depresión por Género",
+        xlab = "Trastorno de Depresión",
+        ylab = "Frecuencia")
+
+# Agregar leyenda
+legend("topright", legend = levels(DepresionDatos$sexo_), fill = c("blue", "pink"))
+
+# Crear un histograma por edad
+hist(DepresionDatos$edad, 
+     main = "Histograma de Edad",
+     xlab = "Edad",
+     ylab = "Frecuencia",
+     col = "skyblue",
+     border = "black")
+
+NoDepresionDatos <- datos[datos$tran_depre == 2,]
+hist(NoDepresionDatos$edad, 
+     main = "Histograma de Edad",
+     xlab = "Edad",
+     ylab = "Frecuencia",
+     col = "skyblue",
+     border = "black")
+
+hist(DepresionDatos$escolarid, 
+     main = "Histograma de Edad",
+     xlab = "Edad",
+     ylab = "Frecuencia",
+     col = "skyblue",
+     border = "black")
+
+
+tabla_frecuenciasEscolaridad <- table(DepresionDatos$escolaridad[DepresionDatos$tran_depre == 1])
+barplot(tabla_frecuenciasEscolaridad, 
+        beside = TRUE,
+        col = c("blue", "pink"),
+        legend.text = TRUE,
+        main = "Diagrama de Barras de Depresión por Género",
+        xlab = "Trastorno de Depresión",
+        ylab = "Frecuencia")
+# Filtrar datos para personas con depresión
+personas_con_dep <- DepresionDatos[DepresionDatos$escolarid >=1 & DepresionDatos$escolarid<=9,]
+
+# Crear tabla de frecuencias de escolaridad
+tabla_frecuencias <- table(personas_con_dep$escolaridad)
+tabla_frecuencias
+# Crear diagrama de barras
+barplot(tabla_frecuencias, 
+        main = "Diagrama de Barras de Escolaridad en Personas con Depresión",
+        xlab = "Nivel de Escolaridad",
+        ylab = "Frecuencia",
+        col = "lightblue",
+        border = "black")
+
+
