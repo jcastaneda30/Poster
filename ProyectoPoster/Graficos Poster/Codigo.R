@@ -58,9 +58,11 @@ Depresion_SexoF <- datos[datos$tran_depre == 1 &
                           datos$sexo_ == 'F',]
 
 DepresionDatos <- datos[datos$tran_depre == 1,]
-
+DepresionDatos <- DepresionDatos[DepresionDatos$escolarid != "SD",]
+DepresionDatos$sexo_ <- factor(DepresionDatos$sexo_)
 # Crear un resumen de las frecuencias
-tabla_frecuencias <- table(DepresionDatos$tran_depre, DepresionDatos$sexo_)
+tabla_frecuencias <- table(DepresionDatos$sexo_)
+tabla_frecuencias
 
 # Crear un diagrama de barras
 barplot(tabla_frecuencias, 
@@ -74,50 +76,12 @@ barplot(tabla_frecuencias,
 # Agregar leyenda
 legend("topright", legend = levels(DepresionDatos$sexo_), fill = c("blue", "pink"))
 
-# Crear un histograma por edad
-hist(DepresionDatos$edad, 
-     main = "Histograma de Edad",
-     xlab = "Edad",
-     ylab = "Frecuencia",
-     col = "skyblue",
-     border = "black")
-
-NoDepresionDatos <- datos[datos$tran_depre == 2,]
-hist(NoDepresionDatos$edad, 
-     main = "Histograma de Edad",
-     xlab = "Edad",
-     ylab = "Frecuencia",
-     col = "skyblue",
-     border = "black")
-
-hist(DepresionDatos$escolarid, 
-     main = "Histograma de Edad",
-     xlab = "Edad",
-     ylab = "Frecuencia",
-     col = "skyblue",
-     border = "black")
+levels(DepresionDatos$sexo_)
 
 
-tabla_frecuenciasEscolaridad <- table(DepresionDatos$escolaridad[DepresionDatos$tran_depre == 1])
-barplot(tabla_frecuenciasEscolaridad, 
-        beside = TRUE,
-        col = c("blue", "pink"),
-        legend.text = TRUE,
-        main = "Diagrama de Barras de Depresión por Género",
-        xlab = "Trastorno de Depresión",
-        ylab = "Frecuencia")
-# Filtrar datos para personas con depresión
-personas_con_dep <- DepresionDatos[DepresionDatos$escolarid >=1 & DepresionDatos$escolarid<=9,]
-
-# Crear tabla de frecuencias de escolaridad
-tabla_frecuencias <- table(personas_con_dep$escolaridad)
-tabla_frecuencias
-# Crear diagrama de barras
-barplot(tabla_frecuencias, 
-        main = "Diagrama de Barras de Escolaridad en Personas con Depresión",
-        xlab = "Nivel de Escolaridad",
-        ylab = "Frecuencia",
-        col = "lightblue",
-        border = "black")
-
+length(DepresionDatos$escolaridad)
+class(DepresionDatos$escolaridad)
+DepresionDatos$escolaridad <- factor(DepresionDatos$escolaridad)
+DepresionDatos$escolarid
+tabla_frecuenciasEscolaridad <- table(DepresionDatos$escolaridad)
 
